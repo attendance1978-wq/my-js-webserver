@@ -1,9 +1,8 @@
+import { serve } from "https://deno.land/std@0.201.0/http/server.ts";
 import { routeRequest } from "./router.js";
-import { settings } from "./config.js";
+import { log } from "./utils.js";
 
-// Start server
-console.log(`Server running on http://${settings.host}:${settings.port}`);
+const PORT = Number(Deno.env.get("PORT") || 8080);
 
-Deno.serve({ port: settings.port, hostname: settings.host }, async (req) => {
-    return await routeRequest(req);
-});
+log(`Server running on http://0.0.0.0:${PORT}`);
+serve(routeRequest, { addr: `0.0.0.0:${PORT}` });
